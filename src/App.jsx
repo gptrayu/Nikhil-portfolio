@@ -10,12 +10,12 @@ const portfolioData = {
   name: "NIKHIL GUPTA",
   slogan: "BE THE REAL YOU",
   about: {
-    summary: "Enthusiastic Computer Science undergraduate at IIIT Tiruchirappalli with a strong track record of building practical solutions in Artificial Intelligence, Machine Learning, Data Science, and NLP. Skilled in transforming ideas into deployable applications using modern tools like YOLOv8, Transformers, LangChain, and FastAPI.",
+    summary: "Aspiring AI & Data Science Engineer and Computer Science undergraduate at IIIT Tiruchirappalli (CGPA: 8+) with hands-on experience in designing, developing, and deploying intelligent systems. Skilled in Computer Vision (YOLOv8 for object detection, ArcFace for face recognition), NLP (Transformers, RAG pipelines, LangChain, LangGraph), and LLM-powered applications, with strong foundations in Data Analysis, Machine Learning, and Statistical Modeling. Proficient in PyTorch, TensorFlow, Docker, and FastAPI for scalable deployment. Passionate about transforming data-driven research into real-world solutions across the AI and Data Science domains",
     education: "Indian Institute of Information Technology, Tiruchirappalli - B.Tech in Computer Science and Engineering — Expected Graduation: 2026, CGPA: 8+",
   },
   projects: [
     { name: "Vehicle Monitor System", desc: "Real-time vehicle tracking and license plate detection using YOLOv8.", tech: ["YOLOv8", "OpenCV", "FastAPI"], link: "https://github.com/nikhilitz/Vehicle-Monitor" },
-    { name: "Vision.ai", desc: "AI tool for image captioning and text-to-speech, enhancing digital accessibility.", tech: ["CNN-Transformer", "Docker", "Streamlit"], link: "https://github.com/nikhilitz/Vision.ai" },
+    { name: "Vision.ai", desc: "AI tool for image captioning and text-to-speech, enhancing digital accessibility.", tech: ["CNN-Transformer", "Streamlit"], link: "https://github.com/nikhilitz/Vision.ai" },
     { name: "Data Analyst Agent", desc: "Conversational AI for data analysis using LangChain and PandasAI.", tech: ["LangChain", "PandasAI", "NLP"], link: "https://github.com/nikhilitz/data_analyst_agent" },
     { name: "AskTube - YouTube QA", desc: "Ask questions about YouTube videos and get instant answers via a RAG pipeline.", tech: ["RAG", "FAISS", "LLMs"], link: "https://github.com/nikhilitz/AskTube" },
   ],
@@ -45,18 +45,23 @@ function Holocrystal({ position, label, onActivate, isActive, isVisible }) {
 
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
-    if (groupRef.current) {
+    
+    const targetPosition = isActive ? new THREE.Vector3(0, 1, 4) : new THREE.Vector3(...position);
+    groupRef.current.position.lerp(targetPosition, 0.05);
+    
+    if (!isActive) {
         groupRef.current.position.y = position[1] + Math.sin(time + position[0]) * 0.2;
     }
+
     if (crystalMeshRef.current) {
-        crystalMeshRef.current.rotation.y += delta * 0.3;
+        crystalMeshRef.current.rotation.y += delta * (isActive ? 2 : 0.3);
     }
     const targetScale = isHovered || isActive ? 1.3 : 1;
     groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
 
   return (
-    <group ref={groupRef} position={position} visible={isVisible}>
+    <group ref={groupRef} visible={isVisible}>
       <group ref={crystalMeshRef}>
         <mesh
           onClick={() => onActivate(label)}
@@ -67,48 +72,32 @@ function Holocrystal({ position, label, onActivate, isActive, isVisible }) {
           <meshStandardMaterial color={crystalColor} emissive={crystalColor} emissiveIntensity={isHovered || isActive ? 1.2 : 0.5} transparent opacity={0.8} />
         </mesh>
       </group>
-      <Text position={[0, -1.8, 0]} fontSize={0.4} color="white" anchorX="center">
+      <Text position={[0, -1.8, 0]} fontSize={0.4} color="white" anchorX="center" visible={!isActive}>
         {label}
       </Text>
     </group>
   );
 }
 
-function AboutCrystal({ onActivate, isActive, isWarping }) {
+function AboutStar({ isActive, isWarping }) {
     const groupRef = useRef();
     const { viewport } = useThree();
-    const [isHovered, setHovered] = useState(false);
-    const originalPosition = useMemo(() => [viewport.width / 2 - 2, viewport.height / 2 - 2, 0], [viewport]);
-
-    useEffect(() => { document.body.style.cursor = isHovered ? 'pointer' : 'auto'; }, [isHovered]);
+    const initialPosition = useMemo(() => [0, -viewport.height / 2 + 2.5, 0], [viewport]);
 
     useFrame((state, delta) => {
-        const targetPosition = isWarping || isActive ? new THREE.Vector3(0, 1, 4) : new THREE.Vector3(...originalPosition);
-        groupRef.current.position.lerp(targetPosition, 0.05);
+        const targetPosition = isWarping || isActive ? new THREE.Vector3(0, 1, 4) : new THREE.Vector3(...initialPosition);
+        groupRef.current.position.lerp(targetPosition, 0.08);
 
-        let rotationSpeed = 0.2;
-        if (isHovered) rotationSpeed = 2;
-        if (isWarping) rotationSpeed = 20;
+        const rotationSpeed = isWarping || isActive ? 20 : 0;
         groupRef.current.rotation.y += delta * rotationSpeed;
-
-        const targetScale = isHovered || isActive ? 1.3 : 1;
-        groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
     });
 
     return (
         <group ref={groupRef}>
-            <mesh
-                rotation-x={Math.PI} // Point the "nose" downwards
-                onClick={() => onActivate("About Me")}
-                onPointerOver={() => setHovered(true)}
-                onPointerOut={() => setHovered(false)}
-            >
+            <mesh rotation-x={Math.PI}>
                 <coneGeometry args={[0.8, 2.5, 6]} />
-                <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={isHovered || isActive ? 1.2 : 0.5} roughness={0.8} />
+                <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={1.2} roughness={0.8} />
             </mesh>
-            <Text position={[0, -2.2, 0]} fontSize={0.4} color="white" anchorX="center">
-                About Me
-            </Text>
         </group>
     );
 }
@@ -177,6 +166,14 @@ function InfoPanel({ activePanel, onClose }) {
     return ( <div className="info-panel-overlay"> <div className="info-panel-content"> <button className="close-button" onClick={onClose}>×</button> {content} </div> </div> );
 }
 
+function LoadingScreen() {
+    return (
+        <div className="loading-overlay">
+            <h1 className="loading-text">Welcome to the era of AI experts</h1>
+        </div>
+    );
+}
+
 // --- MAIN SCENE ---
 function Scene({ onCrystalActivate, activeCrystal, isWarping }) {
     const { viewport, mouse } = useThree();
@@ -204,13 +201,13 @@ function Scene({ onCrystalActivate, activeCrystal, isWarping }) {
       <pointLight position={[0, 5, 5]} intensity={1} color="#FFFFFF" />
       <InteractiveParticles isWarping={isWarping} />
       
-      <group ref={sceneRef}>
-        <Holocrystal position={[-crystalDistance, 0, 0]} label="Projects" onActivate={onCrystalActivate} isActive={activeCrystal === 'Projects'} isVisible={!isWarping && activeCrystal !== 'About Me'} />
-        <Holocrystal position={[0, 0, 0]} label="Skills & Experience" onActivate={onCrystalActivate} isActive={activeCrystal === 'Skills & Experience'} isVisible={!isWarping && activeCrystal !== 'About Me'} />
-        <Holocrystal position={[crystalDistance, 0, 0]} label="Contact" onActivate={onCrystalActivate} isActive={activeCrystal === 'Contact'} isVisible={!isWarping && activeCrystal !== 'About Me'} />
+      <group name="parallaxGroup" ref={sceneRef}>
+        <Holocrystal position={[-crystalDistance, -1.5, 0]} label="Projects" onActivate={onCrystalActivate} isActive={activeCrystal === 'Projects'} isVisible={!isWarping && activeCrystal !== 'About Me'} />
+        <Holocrystal position={[0, -1.5, 0]} label="Skills & Experience" onActivate={onCrystalActivate} isActive={activeCrystal === 'Skills & Experience'} isVisible={!isWarping && activeCrystal !== 'About Me'} />
+        <Holocrystal position={[crystalDistance, -1.5, 0]} label="Contact" onActivate={onCrystalActivate} isActive={activeCrystal === 'Contact'} isVisible={!isWarping && activeCrystal !== 'About Me'} />
       </group>
 
-      <AboutCrystal onActivate={onCrystalActivate} isActive={activeCrystal === 'About Me'} isWarping={isWarping && activeCrystal === 'About Me'} />
+      {(isWarping && activeCrystal === 'About Me') && <AboutStar isActive={activeCrystal === 'About Me'} isWarping={isWarping} />}
 
       <EffectComposer>
         <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.9} height={300} intensity={1.0} />
@@ -221,9 +218,15 @@ function Scene({ onCrystalActivate, activeCrystal, isWarping }) {
 
 // --- APP COMPONENT ---
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeCrystal, setActiveCrystal] = useState(null);
   const [isWarping, setWarping] = useState(false);
   const [showPanel, setShowPanel] = useState(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleActivate = (label) => {
     if (activeCrystal === label) {
@@ -245,11 +248,22 @@ export default function App() {
       setShowPanel(null);
   };
 
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <>
       <div className="title-container">
         <h1>{portfolioData.name}</h1>
         <p>{portfolioData.slogan}</p>
+        <button 
+            className="about-me-button" 
+            onClick={() => handleActivate('About Me')}
+            style={{ display: activeCrystal ? 'none' : 'inline-block' }}
+        >
+          About Me
+        </button>
       </div>
       <InfoPanel activePanel={showPanel} onClose={handleClose} />
       <Canvas camera={{ position: [0, 1, 12], fov: 75 }}>
