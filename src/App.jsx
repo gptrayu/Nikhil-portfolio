@@ -28,7 +28,7 @@ const portfolioData = {
       { role: "Contributor", org: "AI & ML Research Club", desc: "Conducted a technical workshop on “Attention Is All You Need” for 50+ students, explaining the foundations of the Transformer architecture and its impact on modern NLP." }
   ],
   contact: {
-    email: "gptnikhil1977@gmail.com",
+    email: "gptnikhill@gmail.com",
     linkedin: "linkedin.com/in/nikhil-gupta-92baa4257",
     github: "github.com/nikhilitz",
   }
