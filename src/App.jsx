@@ -10,7 +10,7 @@ const portfolioData = {
   name: "NIKHIL GUPTA",
   slogan: "BE THE REAL YOU",
   about: {
-    summary: "Aspiring AI & Data Science Engineer and Computer Science undergraduate at IIIT Tiruchirappalli (CGPA: 8+) with hands-on experience in designing, developing, and deploying intelligent systems. Skilled in Computer Vision (YOLOv8 for object detection, ArcFace for face recognition), NLP (Transformers, RAG pipelines, LangChain, LangGraph), and LLM-powered applications, with strong foundations in Data Analysis, Machine Learning, and Statistical Modeling. Proficient in PyTorch, TensorFlow, Docker, and FastAPI for scalable deployment. Passionate about transforming data-driven research into real-world solutions across the AI and Data Science domains",
+    summary: "Aspiring AI & Data Science Engineer , skilled in Computer Vision (YOLOv8, ArcFace), NLP (Transformers, RAG, LangChain), and LLM applications. Strong foundations in Data Analysis, Machine Learning, and Statistical Modeling, with hands-on experience in PyTorch, TensorFlow, Docker, and FastAPI for scalable AI solutions.",
     education: "Indian Institute of Information Technology, Tiruchirappalli - B.Tech in Computer Science and Engineering — Expected Graduation: 2026, CGPA: 8+",
   },
   projects: [
