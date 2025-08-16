@@ -25,7 +25,7 @@ const portfolioData = {
   },
   experience: [
       { role: "AI Intern", org: "Trivy Tech Pvt Ltd", desc: "Developed a comprehensive AI surveillance system for real-time RTSP stream analysis, integrating ArcFace for facial recognition and a YOLO model for threat detection, with automated alerts orchestrated and delivered via LangGraph." },
-      { role: "Core Member", org: "AI & ML Research Club", desc: "Led a workshop on 'Introduction to Transformers' for over 50 students." }
+      { role: "AI/ML Contributor", org: "AI & ML Research Club", desc: "Conducted a technical workshop on “Attention Is All You Need” for 50+ students, explaining the foundations of the Transformer architecture and its impact on modern NLP." }
   ],
   contact: {
     email: "gptnikhil1977@gmail.com",
