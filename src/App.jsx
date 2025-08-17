@@ -20,12 +20,29 @@ const portfolioData = {
     { name: "AskTube - YouTube QA", desc: "Ask questions about YouTube videos and get instant answers via a RAG pipeline.", tech: ["RAG", "FAISS", "LLMs"], link: "https://github.com/nikhilitz/AskTube" },
   ],
   skills: {
-    areas: ["Computer Vision", "NLP", "LLMs", "RAG Pipelines", "Data Analysis"],
-    frameworks: ["PyTorch", "TensorFlow", "Scikit-learn", "Hugging Face", "LangChain", "FastAPI", "Docker"],
-  },
+    focusAreas: [
+      "Generative AI",
+      "Large Language Models (LLMs)",
+      "Natural Language Processing (NLP)",
+      "Computer Vision",
+      "RAG Pipelines",
+      "Data Analysis & Machine Learning"
+    ],
+    frameworksAndTools: [
+      "PyTorch",
+      "TensorFlow",
+      "Scikit-learn",
+      "Hugging Face",
+      "LangChain",
+      "LangGraph",
+      "FastAPI",
+      "Docker"
+    ]
+  }
+  ,
   experience: [
       { role: "AI Intern", org: "Trivy Tech Pvt Ltd", desc: "Developed a comprehensive AI surveillance system for real-time RTSP stream analysis, integrating ArcFace for facial recognition and a YOLO model for threat detection, with automated alerts orchestrated and delivered via LangGraph." },
-      { role: "Contributor", org: "AI & ML Research Club", desc: "Conducted a technical workshop on “Attention Is All You Need” for 50+ students, explaining the foundations of the Transformer architecture and its impact on modern NLP." }
+      { role: "Contributor", org: "AI & ML Research Club", desc: "Conducted a technical workshop on “Attention Is All You Need” for 50+ students" }
   ],
   contact: {
     email: "gptnikhill@gmail.com",
