@@ -20,9 +20,9 @@ const portfolioData = {
     { name: "AskTube - YouTube QA", desc: "Ask questions about YouTube videos and get instant answers via a RAG pipeline.", tech: ["RAG", "FAISS", "LLMs"], link: "https://github.com/nikhilitz/AskTube" },
   ],
   skills: {
+    languages: ["Python", "C++", "SQL", "JavaScript", "HTML", "CSS"],
     focusAreas: [
       "Generative AI",
-      "Agentic AI",
       "Large Language Models (LLMs)",
       "Natural Language Processing (NLP)",
       "Computer Vision",
@@ -177,7 +177,8 @@ function InfoPanel({ activePanel, onClose }) {
                 <>
                     <h2>SKILLS & EXPERIENCE</h2>
                     <div className="content-section">
-                        {/* THE FIX IS HERE: Changed 'areas' to 'focusAreas' and 'frameworks' to 'frameworksAndTools' */}
+                        <h3>Languages & Databases</h3>
+                        <div className="tech-tags">{portfolioData.skills.languages.map(t => <span key={t}>{t}</span>)}</div>
                         <h3>Focus Areas</h3>
                         <div className="tech-tags">{portfolioData.skills.focusAreas.map(t => <span key={t} className="area">{t}</span>)}</div>
                         <h3>Frameworks & Tools</h3>
