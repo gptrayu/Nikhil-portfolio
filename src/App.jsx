@@ -22,6 +22,7 @@ const portfolioData = {
   skills: {
     focusAreas: [
       "Generative AI",
+      "Agentic AI",
       "Large Language Models (LLMs)",
       "Natural Language Processing (NLP)",
       "Computer Vision",
@@ -38,8 +39,7 @@ const portfolioData = {
       "FastAPI",
       "Docker"
     ]
-  }
-  ,
+  },
   experience: [
       { role: "AI Intern", org: "Trivy Tech Pvt Ltd", desc: "Developed a comprehensive AI surveillance system for real-time RTSP stream analysis, integrating ArcFace for facial recognition and a YOLO model for threat detection, with automated alerts orchestrated and delivered via LangGraph." },
       { role: "Contributor", org: "AI & ML Research Club", desc: "Conducted a technical workshop on “Attention Is All You Need” for 50+ students" }
@@ -173,7 +173,25 @@ function InfoPanel({ activePanel, onClose }) {
             content = ( <> <h2>PROJECTS</h2> <div className="content-grid"> {portfolioData.projects.map(p => ( <a href={p.link} key={p.name} target="_blank" rel="noopener noreferrer" className="card-link"> <div className="card"> <h3>{p.name}</h3> <p>{p.desc}</p> <div className="tech-tags">{p.tech.map(t => <span key={t}>{t}</span>)}</div> </div> </a> ))} </div> </> );
             break;
         case 'Skills & Experience':
-             content = ( <> <h2>SKILLS & EXPERIENCE</h2> <div className="content-section"> <h3>Key Areas</h3> <div className="tech-tags">{portfolioData.skills.areas.map(t => <span key={t} className="area">{t}</span>)}</div> <h3>Frameworks & Tools</h3> <div className="tech-tags">{portfolioData.skills.frameworks.map(t => <span key={t}>{t}</span>)}</div> <h3>Experience</h3> {portfolioData.experience.map(e => ( <div key={e.org} className="card experience"> <h3>{e.role} - {e.org}</h3> <p>{e.desc}</p> </div> ))} </div> </> );
+             content = (
+                <>
+                    <h2>SKILLS & EXPERIENCE</h2>
+                    <div className="content-section">
+                        {/* THE FIX IS HERE: Changed 'areas' to 'focusAreas' and 'frameworks' to 'frameworksAndTools' */}
+                        <h3>Focus Areas</h3>
+                        <div className="tech-tags">{portfolioData.skills.focusAreas.map(t => <span key={t} className="area">{t}</span>)}</div>
+                        <h3>Frameworks & Tools</h3>
+                        <div className="tech-tags">{portfolioData.skills.frameworksAndTools.map(t => <span key={t}>{t}</span>)}</div>
+                        <h3>Experience</h3>
+                        {portfolioData.experience.map(e => (
+                            <div key={e.org} className="card experience">
+                                <h3>{e.role} - {e.org}</h3>
+                                <p>{e.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            );
             break;
         case 'Contact':
              content = ( <> <h2>CONTACT & LINKS</h2> <div className="content-section contact"> <p><strong>Email:</strong> <a href={`mailto:${portfolioData.contact.email}`}>{portfolioData.contact.email}</a></p> <p><strong>LinkedIn:</strong> <a href={`https://${portfolioData.contact.linkedin}`} target="_blank" rel="noopener noreferrer">{portfolioData.contact.linkedin}</a></p> <p><strong>GitHub:</strong> <a href={`https://${portfolioData.contact.github}`} target="_blank" rel="noopener noreferrer">{portfolioData.contact.github}</a></p> </div> </> );
