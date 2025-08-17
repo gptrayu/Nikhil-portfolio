@@ -23,6 +23,7 @@ const portfolioData = {
     languages: ["Python", "C++", "SQL", "JavaScript", "HTML", "CSS"],
     focusAreas: [
       "Generative AI",
+      "Agentic AI",
       "Large Language Models (LLMs)",
       "Natural Language Processing (NLP)",
       "Computer Vision",
