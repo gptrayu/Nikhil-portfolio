@@ -49,7 +49,7 @@ const portfolioData = {
     email: "gptnikhill@gmail.com",
     linkedin: "linkedin.com/in/nikhil-gupta-92baa4257",
     github: "github.com/nikhilitz",
-    leetcode:"http://nikhil-portfolio-umber-ten.vercel.app",
+    leetcode:"    leetcode:"https://leetcode.com/u/maverick_moves/p",",
   }
 };
 
